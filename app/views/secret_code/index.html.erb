@@ -1,0 +1,54 @@
+
+<div class="jumbotron">
+<div class="container">
+</br>
+<%= form_for('secret_code', as: 'secret_code', url: secret_code_add_path) do |f| %>
+
+<h2>Add Secret Code(s)!</h2>
+Select No.of Secret Code(s) to be added:
+<select name="no_of_code" class="code_select">
+<option value="1">1</option>
+<option value="10">10</option>
+<option value="20">20</option>
+<option value="50">50</option>
+<option value="100">100</option>
+</select>
+&nbsp;&nbsp;
+<%= f.submit "Add Secret Code" , class: 'btn btn-danger btn-lg'%>&nbsp;&nbsp;&nbsp;
+<%add_user_path = "/home/add_user"%>
+<%= link_to 'Add User', add_user_path, class: 'btn btn-success btn-lg' %>
+<%end%>
+
+</br>
+
+
+<table width="100%" align="center" border='1px'  class="table table-bordered table-admin">
+<thead>
+<tr class="header_bg">
+<th>S.No</th>
+<th>Secret Code</th>
+<th>User Email</th>
+</tr>
+</thead>
+
+<tbody>
+<%
+i=1
+@code.each do |c| 
+if c.user_id.to_i!=0
+@email = User.find_by_id(c.user_id).email
+else
+@email= "--"
+end
+%>
+<tr class="odd">
+<td width="1%" align="center"><%= i %></td>
+<td width="12%" style="word-break: break-all;"><%= c.code %></td> 
+<td width="12%" style="word-break: break-all;"><%= @email %></td>
+</tr>
+<%i=i+1 
+end %>
+</tbody>
+</table>
+</div>
+</div>

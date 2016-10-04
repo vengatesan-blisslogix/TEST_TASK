@@ -1,0 +1,36 @@
+<% if user_signed_in? and current_user.role=='admin' %>
+<div class="jumbotron">
+    <div class="container">
+    	</br></br>
+    	<%add_user_path = "/home/add_user"%>
+<%= link_to 'Add User', add_user_path, class: 'btn btn-success btn-lg' %>
+&nbsp;&nbsp;&nbsp;
+<%= link_to "Secret Code's", secret_code_index_path, class: 'btn btn-warning btn-lg' %>
+</br></br>
+</div>
+  </div>
+  <%elsif user_signed_in?%>
+  <div class="jumbotron">
+    <div class="container">
+    	</br></br>
+    	Your Email: <%=current_user.email%>
+<%if current_user.secret_code_id.to_i!=0
+@code = SecretCode.find_by_id(current_user.secret_code_id).code
+else
+@code= "--"
+end%></br></br>
+    	Your Secret Code: <%=@code%> 
+</div>
+  </div>
+<%else%>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Welcome!</h1>
+      <p>Login to get started.</p>
+      <p>
+        <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary btn-lg' %>
+      </p>
+    </div>
+  </div>
+
+<%end%>

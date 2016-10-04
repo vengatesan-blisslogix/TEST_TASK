@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TestTask</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse" style="     margin-bottom: 0px;!important;">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to 'Test-Task Demo', root_path, class: 'navbar-brand' %>
+    </div>
+    <div id="navbar">
+      <ul class="nav navbar-nav">
+        <li><%= link_to 'Home', root_path %></li>
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+        <% if user_signed_in? %>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <%= current_user.email %>
+              <span class="caret"></span>
+            </a>
+            
+          </li><li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+
+        <% else %>
+          <li><%= link_to 'Log In', new_user_session_path %></li>
+         
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+     <% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<%= yield %>
+
+<div align="center" style="position:relative;width:100%;background-color: rgba(204, 204, 204, 0.3);" id="appFooter">
+	<table width="100%"><tr>
+<td align="left" style="padding-left:10px;" height="30px"><a href="javascript:void(0);" title="Home"></a>&nbsp;&nbsp;&nbsp;<span class="footer_wix" >© 2016 Test-Task. All rights reserved.</span></td>
+
+	</tr></table>
+
+
+</div>
+<script type="text/javascript">
+
+if($("body")[0].clientHeight < $("body")[0].scrollHeight){
+ 
+
+  if($("#appFooter").length>0){
+  $("#appFooter").css({"top": ($("body")[0].scrollHeight - $("body")[0].clientHeight) + "px"});
+  }
+}
+
+</script>
+
+
+
+
+</body>
+</html>

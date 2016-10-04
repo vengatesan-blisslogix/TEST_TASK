@@ -1,0 +1,66 @@
+<div class="jumbotron">
+    <div class="container">
+    	&nbsp;&nbsp;&nbsp;
+<%= link_to "Add Secret Code's", secret_code_index_path, class: 'btn btn-danger  btn-lg' %>
+<%= form_for('user', as: 'user', url: home_add_user_path) do |f| %>
+<h2>Add User!</h2> 
+<div class="form-group">
+<div align="left" style="padding-left:15px;"><b>Email</b></div>
+<div class="col-xs-12 col-sm-6 col-md-12 col-lg-6"><input type="email" name="email" class="form-control" placeholder="Email" value="" required></div> 
+</div>
+</br>
+<div class="form-group">
+<div align="left" style="padding-left:15px;"><b>Secret Code</b></div>
+<%@code = SecretCode.find_by_user_id(0)
+if @code!=nil
+	@code_id = @code.id
+	@code = @code.code
+	
+else
+	@code = ""
+	@code_id = 0
+end%>
+<input type="hidden" name="code_id" value="<%=@code_id%>">
+<input type="hidden" name="code" value="<%=@code%>">
+<div class="col-xs-12 col-sm-6 col-md-12 col-lg-6"><input type="text" name="code" class="form-control" placeholder="Secret Code" value="<%=@code%>" disabled></div> 
+</div>
+</br></br>
+<%= f.submit "Save" , class: 'btn btn-success btn-lg'%>&nbsp;&nbsp;&nbsp;
+
+<%end%>
+</br></br>
+
+<table width="100%" align="center" border='1px'  class="table table-bordered table-admin">
+<thead>
+<tr class="header_bg">
+<th>S.No</th>
+<th>Email</th>
+<th>User Secret Code</th>
+
+</tr>
+</thead>
+
+<tbody>
+<%
+i=1
+@user_all.each do |u| 
+if u.secret_code_id.to_i!=0
+@code = SecretCode.find_by_id(u.secret_code_id).code
+else
+@code= "--"
+end
+%>
+<tr class="odd">
+<td width="1%" align="center"><%= i %></td>
+<td width="12%" style="word-break: break-all;"><%= u.email %></td> 
+<td width="12%" style="word-break: break-all;"><%= @code %></td>
+
+
+</tr>
+<%i=i+1 
+end %>
+</tbody>
+</table>
+
+    	</div>
+  </div>
